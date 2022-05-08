@@ -4,7 +4,7 @@ const cors = require('cors');
 require ('dotenv').config();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const query = require('express/lib/middleware/query');
+// const query = require('express/lib/middleware/query');
 
 
 const app = express();
@@ -24,30 +24,32 @@ async function run() {
 
         await client.connect();
         const carCollection = client.db('showroom').collection('cars');
-       
         app.get('/cars', async(req,res)=>{
-
           const query ={};
           const  cursor = carCollection.find(query);
           const car = await cursor.toArray();
           res.send(car);
         });
 
-        // single id 
 
+        // single id 
         app.get('/cars/:id', async(req,res)=>{
           const id = req.params.id;
           const query ={_id: ObjectId(id)};
-          const cars = await carCollection.findOne(query);
-          res.send(cars);
+          const result = await carCollection.findOne(query);
+          res.send(result);
         });
 
+
+      
         // post / add iteams
         app.post('/cars',async(req,res)=>{
           const newService = req.body;
           const result = await carCollection.insertOne(newService);
           res.send(result);
         });
+
+
 
         // delete api 
         app.delete('/cars/:id', async(req, res)=>{
@@ -57,6 +59,21 @@ async function run() {
           res.send(result);
         });
 
+
+        // update api 
+        app.put("/update/:id", async (req, res)=>{
+          const id = req.params.id;
+          const object = req.body;
+          const filter = {_id:ObjectId(id)};
+          const options = { upsert : true};
+          const updateDoc = {
+            $set:{
+              quantity : object.decrease,
+            },
+          };
+          const result = await collection.updateOne(filter,updateDoc, options);
+          res.send(result);
+        });
 
       }
       finally{

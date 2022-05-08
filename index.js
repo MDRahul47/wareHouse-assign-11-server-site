@@ -4,7 +4,6 @@ const cors = require('cors');
 require ('dotenv').config();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-// const query = require('express/lib/middleware/query');
 
 
 const app = express();
@@ -50,7 +49,7 @@ async function run() {
           res.send(result);
         });
 
-        // --------- 
+       
 
 
 

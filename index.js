@@ -75,6 +75,9 @@ async function run() {
           res.send(result);
         });
 
+
+
+
       }
       finally{
 
@@ -85,7 +88,9 @@ async function run() {
 run().catch(console.dir);
 
 
-
+app.get('/hero',(req,res)=>{
+    res.send('vai asi');
+});
 
 app.get('/',(req,res)=>{
     res.send('running cars');

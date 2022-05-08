@@ -63,20 +63,7 @@ async function run() {
         });
 
 
-        // update api 
-        app.put("/update/:id", async (req, res)=>{
-          const id = req.params.id;
-          const object = req.body;
-          const filter = {_id:ObjectId(id)};
-          const options = { upsert : true};
-          const updateDoc = {
-            $set:{
-              quantity : object.decrease,
-            },
-          };
-          const result = await collection.updateOne(filter,updateDoc, options);
-          res.send(result);
-        });
+       
 
 
 

@@ -78,7 +78,7 @@ run().catch(console.dir);
 
 
 app.get('/hero',(req,res)=>{
-    res.send('vai asi');
+    res.send('hero site is running');
 });
 
 app.get('/',(req,res)=>{
